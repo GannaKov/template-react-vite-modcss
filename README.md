@@ -153,6 +153,7 @@ the line are required.
 
 - [react-icons](https://react-icons.github.io/react-icons/)
 - [styled-components](https://styled-components.com/)
+- [modern-normalize](https://github.com/sindresorhus/modern-normalize)
 - [mui](https://mui.com/)
 - [tailwind](https://tailwindcss.com/)
 - [uuid](https://www.npmjs.com/package/uuid)
