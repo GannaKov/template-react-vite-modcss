@@ -158,3 +158,4 @@ the line are required.
 - [tailwind](https://tailwindcss.com/)
 - [uuid](https://www.npmjs.com/package/uuid)
 - [randomUUID](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID)
+- [axios](https://axios-http.com/docs/intro)
