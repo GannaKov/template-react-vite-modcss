@@ -42,7 +42,6 @@ other private repository:
    page will automatically reload after saving changes to the project files.
 5. In vite.config.js change base: "/template-vite-react/" to
    `base: "/your_repo_name/"`
-
 6. Do not forget to change <title> in index.html
 7. Specify the homepage in package.json
 
@@ -53,7 +52,7 @@ other private repository:
 Example
 
 ```jsx
-https://gannakov.github.io/react-fetch-users/
+"homepage":"https://gannakov.github.io/template-react-vite-modcss/"
 ```
 
 ## Deploy
@@ -120,10 +119,14 @@ Do not forget to `git pull` to fetch the changes into your local repository.
 
 ## Active workflow
 
+![Active workflow step 1](./src/assets/imagesReadMe/actions-config-step-1.png)
+
+![Active workflow step 2](./src/assets/imagesReadMe/actions-config-step-2.png)
+
 ```txt
-Config -> Actions -> General -> Workflow permissions -> Read and Write permissions
+Settings -> Actions -> General -> Workflow permissions -> Read and Write permissions
 Actions -> failed deploy -> re-run-job failed jobs
-Config -> Pages -> gh-pages -> save
+Settings -> Pages -> gh-pages -> save
 ```
 
 ### Deployment status
