@@ -1,4 +1,4 @@
-import styles from "../styles/Example.module.css";
+import styles from "./Example.module.css";
 import frogImg from "../assets/images/frog-green-md.png";
 // import axios from "axios";
 //--------------------

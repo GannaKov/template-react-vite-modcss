@@ -44,6 +44,17 @@ other private repository:
    `base: "/your_repo_name/"`
 
 6. Do not forget to change <title> in index.html
+7. Specify the homepage in package.json
+
+```jsx
+"homepage": "[PROJECT_URL]"
+```
+
+Example
+
+```jsx
+https://gannakov.github.io/react-fetch-users/
+```
 
 ## Deploy
 
@@ -107,6 +118,14 @@ Save it as `workflow.yml`.
 
 Do not forget to `git pull` to fetch the changes into your local repository.
 
+## Active workflow
+
+```txt
+Config -> Actions -> General -> Workflow permissions -> Read and Write permissions
+Actions -> failed deploy -> re-run-job failed jobs
+Config -> Pages -> gh-pages -> save
+```
+
 ### Deployment status
 
 The deployment status of the latest commit is displayed with an icon next to its
@@ -126,7 +145,7 @@ icon, and in the drop-down window, follow the link `Details`.
 After some time, usually a couple of minutes, the live page can be viewed at the
 address specified in the edited `homepage` property.
 
-### Routing
+# React Router
 
 If your application uses the `react-router-dom` library for routing, you must
 additionally configure the `<BrowserRouter>` component by passing the exact name
@@ -137,7 +156,9 @@ the line are required.
 npm install react-router-dom
 ```
 
-in index.js
+## Configuring the routing on main.js and app.jsx
+
+main.js
 
 ```jsx
 import { BrowserRouter } from "react-router-dom";
@@ -171,6 +192,113 @@ export const App = () => {
     </div>
   );
 };
+```
+
+or
+
+main.js
+
+```jsx
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+Example App.jsx
+
+```jsx
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <SharedLayout />,
+      children: [
+        { index: true, Component: HomePage },
+        {
+          path: "/users",
+          children: [
+            { index: true, element: <UsersPage /> },
+            {
+              path: "/users/:id",
+              element: <SingleUserPage />,
+              children: [
+                { path: "address", element: <Address /> },
+                { path: "contact", element: <Contact /> },
+              ],
+            },
+          ],
+        },
+        { path: "/contactus", Component: ContactPage },
+        { path: "*", Component: NotFound },
+      ],
+    },
+    // { path: "*", Component: Root },
+  ],
+  { basename: "/your_repo_name/" }
+);
+
+const App = () => {
+  return <RouterProvider router={router} />;
+};
+export default App;
+```
+
+## Create the 404.html file in the public folder
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Router</title>
+    <script type="text/javascript">
+      var pathSegmentsToKeep = 1;
+
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          "//" +
+          l.hostname +
+          (l.port ? ":" + l.port : "") +
+          l.pathname
+            .split("/")
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join("/") +
+          "/?/" +
+          l.pathname
+            .slice(1)
+            .split("/")
+            .slice(pathSegmentsToKeep)
+            .join("/")
+            .replace(/&/g, "~and~") +
+          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
+```
+
+## Add the script below inside the head tag in index.html
+
+```js
+<script type="text/javascript">
+  (function (l) {
+    if (l.search[1] === "/") {
+      var decoded = l.search
+        .slice(1)
+        .split("&")
+        .map(function (s) {
+          return s.replace(/~and~/g, "&");
+        })
+        .join("?");
+      window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+    }
+  })(window.location);
+</script>
 ```
 
 ## How it works

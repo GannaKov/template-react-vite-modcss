@@ -1,6 +1,6 @@
 import "./App.css";
 
-import Example from "./components/example";
+import Example from "./components/Example/Example";
 
 const App = () => {
   return (
