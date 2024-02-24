@@ -1,5 +1,5 @@
 import styles from "./Example.module.css";
-import frogImg from "../assets/images/frog-green-md.png";
+import frogImg from "../../assets/images/frog-green-md.png";
 // import axios from "axios";
 //--------------------
 // const instanceBacEnd = axios.create({
