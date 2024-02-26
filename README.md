@@ -196,7 +196,7 @@ Settings -> Pages -> gh-pages -> save
    (if React Router)
 
 ```txt
-/* /index.html 200 */
+/* /index.html 200
 ```
 
 ### Deployment status
