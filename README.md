@@ -41,9 +41,9 @@ other private repository:
 4. Go to [http://localhost:5173](http://localhost:5173) in your browser. This
    page will automatically reload after saving changes to the project files.
 5. In vite.config.js change base: "/template-vite-react/" to
-   `base: "/your_repo_name/"`
+   `base: "/your_repo_name/"` (not for Netlify)
 6. Do not forget to change <title> in index.html
-7. Specify the homepage in package.json
+7. Specify the homepage in package.json (not for Netlify)
 
 ```jsx
 "homepage": "[PROJECT_URL]"
@@ -55,7 +55,7 @@ Example
 "homepage":"https://gannakov.github.io/template-react-vite-modcss/"
 ```
 
-## Deploy
+## Deploy to GitHub
 
 Go to your GitHub Pages configuration (`Settings` >`Pages`) in the repository settings page and choose the source of deployment as `GitHub Actions`, this will lead you to create a workflow that builds and deploys your project (choose `create your own`), a sample workflow that installs dependencies and builds using npm is provided:
 
@@ -113,11 +113,67 @@ jobs:
         uses: actions/deploy-pages@v2
 ```
 
+### Create the 404.html file in the public folder if React Router
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Router</title>
+    <script type="text/javascript">
+      var pathSegmentsToKeep = 1;
+
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          "//" +
+          l.hostname +
+          (l.port ? ":" + l.port : "") +
+          l.pathname
+            .split("/")
+            .slice(0, 1 + pathSegmentsToKeep)
+            .join("/") +
+          "/?/" +
+          l.pathname
+            .slice(1)
+            .split("/")
+            .slice(pathSegmentsToKeep)
+            .join("/")
+            .replace(/&/g, "~and~") +
+          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
+```
+
+### Add the script below inside the head tag in index.html if React Router
+
+```js
+<script type="text/javascript">
+  (function (l) {
+    if (l.search[1] === "/") {
+      var decoded = l.search
+        .slice(1)
+        .split("&")
+        .map(function (s) {
+          return s.replace(/~and~/g, "&");
+        })
+        .join("?");
+      window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+    }
+  })(window.location);
+</script>
+```
+
 Save it as `workflow.yml`.
 
 Do not forget to `git pull` to fetch the changes into your local repository.
 
-## Active workflow
+### Active workflow
 
 ![Active workflow step 1](./src/assets/imagesReadMe/actions-config-step-1.png)
 
@@ -128,6 +184,20 @@ Settings -> Actions -> General -> Workflow permissions -> Read and Write permiss
 Actions -> failed deploy -> re-run-job failed jobs
 Settings -> Pages -> gh-pages -> save
 ```
+
+## Deploy to Netlify
+
+1. No base in vite.config.js
+2. No homepage in package.json
+3. No base in createBrowserRouter
+4. No additional script in index.html
+5. No 404.html in public folder
+6. To avoid 404 page it is necessary \_redirect file in public folder
+   (if React Router)
+
+   ´´´js
+   /\* /index.html 200
+   ´´´
 
 ### Deployment status
 
@@ -148,7 +218,7 @@ icon, and in the drop-down window, follow the link `Details`.
 After some time, usually a couple of minutes, the live page can be viewed at the
 address specified in the edited `homepage` property.
 
-# React Router
+## React Router
 
 If your application uses the `react-router-dom` library for routing, you must
 additionally configure the `<BrowserRouter>` component by passing the exact name
@@ -159,7 +229,7 @@ the line are required.
 npm install react-router-dom
 ```
 
-## Configuring the routing on main.js and app.jsx
+### Configuring the routing on main.js and app.jsx
 
 main.js
 
@@ -248,63 +318,7 @@ const App = () => {
 export default App;
 ```
 
-## Create the 404.html file in the public folder
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>React Router</title>
-    <script type="text/javascript">
-      var pathSegmentsToKeep = 1;
-
-      var l = window.location;
-      l.replace(
-        l.protocol +
-          "//" +
-          l.hostname +
-          (l.port ? ":" + l.port : "") +
-          l.pathname
-            .split("/")
-            .slice(0, 1 + pathSegmentsToKeep)
-            .join("/") +
-          "/?/" +
-          l.pathname
-            .slice(1)
-            .split("/")
-            .slice(pathSegmentsToKeep)
-            .join("/")
-            .replace(/&/g, "~and~") +
-          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
-          l.hash
-      );
-    </script>
-  </head>
-  <body></body>
-</html>
-```
-
-## Add the script below inside the head tag in index.html
-
-```js
-<script type="text/javascript">
-  (function (l) {
-    if (l.search[1] === "/") {
-      var decoded = l.search
-        .slice(1)
-        .split("&")
-        .map(function (s) {
-          return s.replace(/~and~/g, "&");
-        })
-        .join("?");
-      window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
-    }
-  })(window.location);
-</script>
-```
-
-## How it works
+### How it works
 
 ![How it works](./src/assets/imagesReadMe/how-it-works.png)
 
@@ -324,3 +338,4 @@ export default App;
 - [uuid](https://www.npmjs.com/package/uuid)
 - [randomUUID](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID)
 - [axios](https://axios-http.com/docs/intro)
+- [netlify 404 page](https://answers.netlify.com/t/support-guide-i-ve-deployed-my-site-but-i-still-see-page-not-found/125?utm_source=404page&utm_campaign=community_tracking)
