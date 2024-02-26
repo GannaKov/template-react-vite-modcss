@@ -195,7 +195,7 @@ Settings -> Pages -> gh-pages -> save
 6. To avoid 404 page it is necessary \_redirect file in public folder
    (if React Router)
 
-   ´´´js
+   ´´´txt
    /\* /index.html 200
    ´´´
 
