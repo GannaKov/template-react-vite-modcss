@@ -169,10 +169,6 @@ jobs:
 </script>
 ```
 
-Save it as `workflow.yml`.
-
-Do not forget to `git pull` to fetch the changes into your local repository.
-
 ### Active workflow
 
 ![Active workflow step 1](./src/assets/imagesReadMe/actions-config-step-1.png)
@@ -189,10 +185,10 @@ Settings -> Pages -> gh-pages -> save
 
 1. No base in vite.config.js
 2. No homepage in package.json
-3. No base in createBrowserRouter
+3. No base in createBrowserRouter or BrowserRouter
 4. No additional script in index.html
 5. No 404.html in public folder
-6. To avoid 404 page it is necessary \_redirect file in public folder
+6. To avoid 404 page it is necessary \_redirects file in public folder
    (if React Router)
 
 ```txt
