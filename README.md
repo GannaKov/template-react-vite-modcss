@@ -57,7 +57,7 @@ Example
 
 ## Deploy to GitHub
 
-Go to your GitHub Pages configuration (`Settings` >`Pages`) in the repository settings page and choose the source of deployment as `GitHub Actions`, this will lead you to create a workflow that builds and deploys your project (choose `create your own`), a sample workflow that installs dependencies and builds using npm is provided:
+Go to your GitHub Pages configuration (`Settings` >`Pages`) in the repository settings page and choose the source of deployment as `GitHub Actions`, this will lead you to create a workflow that builds and deploys your project (choose `create your own`), a sample workflow that installs dependencies and builds using npm is provided and save it in workflow.yml
 
 ```yaml
 # Simple workflow for deploying static content to GitHub Pages
