@@ -195,6 +195,28 @@ Settings -> Pages -> gh-pages -> save
 /* /index.html 200
 ```
 
+## Deploy to Vercel
+
+- [Deploy Vite react app on Vercel](https://robiul.dev/deploy-vite-react-app-on-both-github-pages-and-vercel#heading-deploy-vite-react-app-on-vercel)
+- [Deploying a Vite Static Site](https://vitejs.dev/guide/static-deploy#vercel)
+- [Vite on Vercel](https://vercel.com/docs/frameworks/vite)
+
+vercel.json
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+Do not forget to add Environment Variables on Vercel during deployment.
+If Environment Variables were added later a new Deployment is required for your changes to take effect!
+
 ### Deployment status
 
 The deployment status of the latest commit is displayed with an icon next to its
