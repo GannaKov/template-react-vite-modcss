@@ -305,29 +305,49 @@ const router = createBrowserRouter(
     {
       path: "/",
       element: <SharedLayout />,
+      errorElement: <NotFoundPage />,
+
       children: [
-        { index: true, Component: HomePage },
         {
-          path: "/users",
+          errorElement: <NotFoundPage />,
           children: [
-            { index: true, element: <UsersPage /> },
             {
-              path: "/users/:id",
-              element: <SingleUserPage />,
+              index: true,
+              Component: HomePage,
+              loader: getCategoriesLoder,
+            },
+            {
+              path: "/animals",
+
+              // Component: UsersPage,
+
               children: [
-                { path: "address", element: <Address /> },
-                { path: "contact", element: <Contact /> },
+                {
+                  index: true,
+                  element: <AllPetsPage />,
+                  loader: getLimitedAnimalsLoader,
+                },
+                {
+                  path: "/animals/:pet_type",
+                  element: <CategoryPage />,
+                  loader: getByTypeLoader,
+                },
+                {
+                  path: "/animals/:pet_type/:pet_id",
+                  element: <SinglePetPage />,
+                  loader: getSinglePetLoader,
+                },
               ],
             },
+            { path: "/contact-form", element: <ContactFormPage /> },
           ],
         },
-        { path: "/contactus", Component: ContactPage },
-        { path: "*", Component: NotFound },
+
+        // { path: "*", Component: NotFound },
       ],
     },
-    // { path: "*", Component: Root },
-  ],
-  { basename: "/your_repo_name/" }
+  ]
+  // { basename: "/react-fetch-users/" }
 );
 
 const App = () => {
