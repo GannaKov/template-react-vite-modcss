@@ -214,6 +214,14 @@ vercel.json
 }
 ```
 
+    ```txt
+    npm run build
+    ```
+
+Push your code to your git repository (GitHub, GitLab, Bitbucket).
+Import your Vite project into Vercel.
+Vercel will detect that you are using Vite and will enable the correct settings for your deployment.
+
 Do not forget to add Environment Variables on Vercel during deployment.
 If Environment Variables were added later a new Deployment is required for your changes to take effect!
 
